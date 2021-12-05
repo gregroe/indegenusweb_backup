@@ -17,8 +17,9 @@ export const stateKeys = {
     SERVICES: '__services',
     PRINT_ORDER: '__print_order',
     CART: '__cart',
-    USER: '_IDENTITY_',
+    USER: '_IDGUSER_',
     TOAST: '__toast',
+    SUB_CATEGORY_ID:"SUB__ID"
 };
 export const BUG_ADDED = "BUG_ADDED";
 export const BUG_REMOVED = "BUG_REMOVED";

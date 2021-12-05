@@ -14,16 +14,85 @@
 }
 #get__started1{
   position: fixed;
+  width: 100%;
     bottom: 100px;
     text-align: center;
-    right: 39%;
+    right: 0%;
     color: #CB9748;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 500;
     cursor: pointer;
 }
-
+input[type="text"],
+input[type="number"],
+input[type="password"],
+input[type="email"]{
+  font-size: 16px!important;
+}
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: #1a1c1e!important;
+}
+.ant-tabs-ink-bar {
+  background: #8b959f!important;
+}
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-list, .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-list {
+  
+  margin-left: 28px!important
+;
+}
+.ant-tabs-tab {
+  margin-right: 59px!important;
+}
+.ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap, .ant-tabs > div > .ant-tabs-nav .ant-tabs-nav-wrap {
+  
+  justify-content: center!important;
+}
+.user-avatar {
+  display: inline-block;
+  float: inherit;
+  width: 36px;
+  height: 56px;
+  margin: 5px;
+  line-height: 36px;
+  border-radius: 50%;
+  background-size: cover;
+  font-weight: 100;
+  font-size: 18px;
+  text-align: center;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+  color: white;
+}
+.user-avatar.-initial {
+  background-color: black;
+}
+.user-avatar.-large {
+  width: 100px;
+  height: 100px;
+  line-height: 64px;
+  font-size: 32px;
+}
+.user-banner {
+  display: inline-block;
+  float: inherit;
+  width: 100%;
+  height: 151px;
+  /* margin: 0px; */
+  line-height: 36px;
+  /* border-radius: 50%; */
+  background-size: cover;
+  font-weight: 100;
+  font-size: 18px;
+  text-align: center;
+  text-shadow: 0 0 2px rgba(0, 0, 0, 0.9);
+  color: white;
+}
+.user-banner.-large {
+  width: 100%;
+  height: 140px;
+  line-height: 64px;
+  font-size: 32px;
+}
 @media (prefers-reduced-motion: no-preference) {
   .App-logo {
     animation: App-logo-spin infinite 20s linear;
@@ -61,6 +130,10 @@
   background-size: 400px;
  /* is width and height divided by two */
 }
+.adm-list-item {
+  
+  margin-bottom: 20px!important;
+}
 .App-header {
   background-color: #282c34;
   min-height: 100vh;
@@ -75,7 +148,52 @@
 .App-link {
   color: #61dafb;
 }
-
+.l-16{
+  line-height: 16px!important;
+}
+.comp-btn-outline{
+  border: 2px solid #FFB43A;
+box-sizing: border-box;
+border-radius: 12px;
+width: 100%;
+background: #FFF!important;
+color:#FFB43A!important
+}
+.q-opt{
+  width:100%;
+  min-height: 69px;
+  border: 2px solid #8D8D8D;
+box-sizing: border-box;
+border-radius: 9px;
+}
+.comp-btn{
+  border: 2px solid #FFB43A;
+box-sizing: border-box;
+border-radius: 12px;
+width: 100%;
+background: #FFB43A!important;
+color:#FFF!important
+}
+.personal-health{
+  background: linear-gradient(90deg, #28936D 0%, #35EAAA 70.83%);
+border-radius: 9px 9px 0px 0px;
+}
+.fam-health{
+  background: linear-gradient(90deg, #46A5BC 0%, #96E6FA 69.79%);
+border-radius: 9px 9px 0px 0px;
+}
+.forthe{
+  background: linear-gradient(90deg, #894D70 0%, #DD7CB5 65.63%);
+border-radius: 9px 9px 0px 0px;
+}
+.covid{
+  background: linear-gradient(90deg, #8F3944 0%, #E9586A 68.75%);
+border-radius: 9px 9px 0px 0px;
+}
+.genetics{
+  background: linear-gradient(90deg, #BB7B00 0%, #FFB63F 68.23%);
+border-radius: 9px 9px 0px 0px;
+}
 @keyframes App-logo-spin {
   from {
     transform: rotate(0deg);
@@ -91,4 +209,119 @@
   50%   {background: #FFF;}
   100%   {background: #0B0B0B;}
   
+}
+
+.ant-drawer-content {
+  background-color: #202020!important;
+  /* filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25)) drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))!important */
+}
+.ant-drawer-header {
+  background-color: #202020!important;
+  /* border-bottom: 1px solid #214e3b!important; */
+}
+
+
+
+.checkbox-dropdown {
+  width: 100%;
+  /* border: 1px solid #aaa; */
+  padding: 10px;
+  position: relative;
+/*     margin: 0 auto; */
+  
+  user-select: none;
+}
+
+/* Display CSS arrow to the right of the dropdown text */
+.checkbox-dropdown:after {
+  content:'';
+  height: 0;
+  position: absolute;
+  width: 0;
+  border: 6px solid transparent;
+  border-top-color: #000;
+  top: 50%;
+  right: 10px;
+  margin-top: -3px;
+}
+
+/* Reverse the CSS arrow when the dropdown is active */
+.checkbox-dropdown.is-active:after {
+  border-bottom-color: #000;
+  border-top-color: #fff;
+  margin-top: -9px;
+}
+
+.checkbox-dropdown-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  position: absolute;
+  top: 100%; /* align the dropdown right below the dropdown text */
+  border: inherit;
+  border-top: none;
+  left: -1px; /* align the dropdown to the left */
+  right: -1px; /* align the dropdown to the right */
+  opacity: 0; /* hide the dropdown */
+  transition: opacity 0.4s ease-in-out;
+  height: auto;
+  /* overflow: scroll; */
+  overflow-x: hidden;
+  pointer-events: none; /* avoid mouse click events inside the dropdown */
+}
+.is-active .checkbox-dropdown-list {
+  opacity: 1; /* display the dropdown */
+  pointer-events: auto; /* make sure that the user still can select checkboxes */
+  background:#d7d7d7;
+  z-index: 99;
+}
+
+.checkbox-dropdown-list li label {
+  display: block;
+  border-bottom: 1px solid silver;
+  padding: 10px;
+ 
+  transition: all 0.2s ease-out;
+}
+
+.checkbox-dropdown-list li label:hover {
+  background-color: #555;
+  color: white;
+}
+.scrolling-wrapper .card {
+  display: inline-block;
+}
+
+.scrolling-wrapper-flexbox {
+  display: flex;
+  flex-wrap: nowrap;
+  overflow-x: auto;
+}
+.scrolling-wrapper-flexbox .card {
+  flex: 0 0 auto;
+  margin-right: 5px;
+}
+
+.card {
+  /* border: 2px solid #cb9649; */
+  width: 150px;
+  /* height: 175px; */
+  /* background: #cb9649; */
+}
+
+.scrolling-wrapper, .scrolling-wrapper-flexbox {
+  /* height: 80px; */
+  margin-bottom: 20px;
+  width: 100%;
+  -webkit-overflow-scrolling: touch;
+}
+.scrolling-wrapper::-webkit-scrollbar, .scrolling-wrapper-flexbox::-webkit-scrollbar {
+  display: none;
+}
+
+.ant-picker {
+  
+  padding: 8px 11px 8px!important; 
+  border: 2px solid #d9d9d9!important;
+  border-radius: 10px!important;
 }

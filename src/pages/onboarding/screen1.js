@@ -4,10 +4,10 @@ import { Link } from "react-router-dom";
 import $ from "jquery";
 import { Fade } from "reactstrap";
 import { Carousel } from "antd";
-import girlOne from "../../assets/images/test7.png";
+import girlOne from "../../assets/images/test7.jpg";
 import girlOneBig from "../../assets/images/test6.png";
-import hands from "../../assets/images/hands7.png";
-import patient from "../../assets/images/patient7.png";
+import hands from "../../assets/images/hands7.jpg";
+import patient from "../../assets/images/patient7.jpg";
 import { enquireScreen } from "enquire-js";
 import { WhisperSpinner, RainbowSpinner, SwapSpinner, StageSpinner } from "react-spinners-kit";
 
@@ -35,7 +35,7 @@ class ScreenOne extends React.Component {
 
         setTimeout(() => {
             $("#preloader").delay(450).fadeOut("slow");
-        }, 4000);
+        }, 2600);
     }
     render() {
         require("antd/dist/antd.css");
@@ -61,15 +61,16 @@ class ScreenOne extends React.Component {
                 <Fade>
                     <div className="conts" style={{ background: "#0B0B0B", width: "100%", height: "100vh", textAlign: "center" }}>
                         <div style={{ width: "100%" }}>
-                            <Carousel autoplay effect="fade" dots={false}>
+                            <Carousel autoplay effect="fade" dots={false} delay={'3s'}>
+                               
                                 <div>
                                     <div style={contentStyle}>
-                                        <img src={girlOne} style={{ width: "100%" }} className="imm" />
+                                        <img src={hands} style={{ width: "100%" }} className="imm" />
                                     </div>
                                 </div>
                                 <div>
                                     <div style={contentStyle}>
-                                        <img src={hands} style={{ width: "100%" }} className="imm" />
+                                        <img src={girlOne} style={{ width: "100%" }} className="imm" />
                                     </div>
                                 </div>
                                 <div>

@@ -1,16 +1,16 @@
 import React from 'react';
 import {stateKeys} from "../redux/actions";
 import {setReduxState} from "./helpers";
-import { Redirect, Route, withRouter, useHistory } from "react-router-dom";
+//import { Navigate, Route, withRouter, useHistory } from "react-router-dom";
 //import store from "../redux/store"
-//import { Redirect } from "react-router";
+//import { Navigate } from "react-router";
 //import {browserHistory, hi} from "react-router";
 
 export function __RouteProps(route) {
-    useHistory.push(route);
+    //useHistory.push(route);
 }
 const TOKEN_KEY = 'token';
-export const USER_KEY = '_IDENTITY_';
+export const USER_KEY = stateKeys.USER;
 
 export function userLoggedIn() {
     return !!getUserToken();
@@ -23,6 +23,70 @@ export function getActiveStore() {
 //     return sessionStorage.getItem(TOKEN_KEY) ? sessionStorage : localStorage;
 // }
 
+
+export function loginUser(token, user, redirect) {
+   
+    const storage = localStorage;
+    const _storage = sessionStorage;
+    storage.setItem(TOKEN_KEY, token);
+    _storage.setItem(TOKEN_KEY, token);
+    if (user) {
+
+    storage.setItem(stateKeys.USER, JSON.stringify(user));
+
+    if (redirect) {
+        const intended = rememberRoute();
+        if (intended) {
+            window.location = intended;
+        } 
+        else if(user.securityQuestion){
+            window.location = "/profile";
+            return true;
+        }
+        // else if(!user.securityQuestion){
+        //     window.location = "/security_questions";
+        //     return true;
+        // }
+        else if(!user.securityQuestion){
+            window.location = "/profile";
+            return true;
+        }
+        else if(user == "superteller@kulpay"){
+            window.location = "/superteller/index";
+            return true;
+        }
+        else{
+            return false
+        }
+       
+        }
+    }
+
+}
+
+export function RerouteActiveUser() {
+   const user = JSON.parse(localStorage.getItem(stateKeys.USER))
+   
+    if (user) {
+
+    //storage.setItem("_IDENTITY_", JSON.stringify(user));
+
+   if(user.role == "User"){
+            window.location = "/profile";
+            return true;
+        }
+        else if(user == "superteller@kulpay"){
+            window.location = "/superteller/index";
+            return true;
+        }
+        else{
+            return false
+        }
+       
+        }
+    
+
+}
 export function getUserToken() {
     return getActiveStore().getItem(TOKEN_KEY)
 }
@@ -56,11 +120,11 @@ export function updateUserInfo(data) {
 }
 
 
-export const AuthRoute = withRouter(({component: Component, path, authorized, ...rest}) => {
+// export const AuthRoute = withRouter(({component: Component, path, authorized, ...rest}) => {
 
-    return <Redirect from={`/signin`} to={path}/>
+//     return <Navigate from={`/signin`} to={path}/>
 
-});
+// });
 
 export function rememberRoute() {
     const key = '__intended';
@@ -70,7 +134,7 @@ export function rememberRoute() {
     return old;
 }
 
-export function logOutUser(redirect) {
+export function logOutUser(Navigate) {
     // getActiveStore().removeItem(TOKEN_KEY);
     localStorage.removeItem(TOKEN_KEY);
     sessionStorage.removeItem(TOKEN_KEY);
@@ -79,7 +143,7 @@ export function logOutUser(redirect) {
     // localStorage.removeItem(stateKeys.USER);
     // sessionStorage.removeItem(stateKeys.USER);
 
-    window.location = redirect ? redirect : '/';
+    window.location = Navigate ? Navigate : '/';
 }
 export function clearStore() {
     // getActiveStore().removeItem(TOKEN_KEY);

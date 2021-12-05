@@ -1,7 +1,7 @@
 import {useState} from "react";
 import store from "../redux/store";
 import {stateKeys} from "../redux/actions";
-import { login } from "../Redux_Slices/userSlice";
+//import { login } from "../Redux_Slices/userSlice";
 
 
 export const PAGINATOR_DEFAULT = {
@@ -21,13 +21,13 @@ export const PAGINATOR_DEFAULT = {
 
 
 let nthDerivation  = (data) => {
-    if(parseInt(data) == 1 || parseInt(data) == 21 || parseInt(data) == 31){
+    if(parseInt(data) === 1 || parseInt(data) === 21 || parseInt(data) == 31){
       return "st"
     }
-    else if(parseInt(data) == 2 || parseInt(data) == 22){
+    else if(parseInt(data) === 2 || parseInt(data) === 22){
       return "nd"
     }
-    else if(parseInt(data) == 3 || parseInt(data) == 23){
+    else if(parseInt(data) === 3 || parseInt(data) === 23){
       return "rd"
     }
     else{
@@ -313,7 +313,7 @@ export function useMergeState(initialState) {
 }
 
 export function setReduxState(value, key) {
-    console.log(value, key, "Entered redux")
+    // console.log(value, key, "Entered redux")
     store.dispatch({
         'type': key,
         'value': value
@@ -334,18 +334,18 @@ export function setReduxState(value, key) {
 export function reduxState(key, defaultValue) {
     let state = store.getState();
     var __stringify = JSON.stringify(state);
-    console.log(__stringify, "string")
+    // console.log(__stringify, "string")
     var __parse = JSON.parse(__stringify);
-    console.log(__parse, "parsed")
+    // console.log(__parse, "parsed")
     //var dd = JSON.stringify(state)
-   console.log(state, "statekey")
-    return __parse ?? defaultValue;
+   console.log(state[key], "statekey")
+    return state[key] ?? defaultValue;
     //return defaultValue;
 }
-export function resetStore(){
-    store.dispatch(
-        login({
-            user:null
-        })
-    )
-}
+// export function resetStore(){
+//     store.dispatch(
+//         login({
+//             user:null
+//         })
+//     )
+// }
