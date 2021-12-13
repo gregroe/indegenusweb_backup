@@ -90,7 +90,7 @@ class Header extends React.Component {
          
           <div style={{ textAlign: "center", width: "100%", marginTop: "41px" }}>
                             <div class="user-avatar -large" style={{ backgroundImage: `url(${profileRound})`, textAlign: "center" }}></div>
-                            <p style={{ fontWeight: "700", color:"#FFC743", fontSize:'14px' }}>{this.state.payLoad?.isUpdatedProfile ? this.state.payLoad?.fulllName : this.state.payLoad?.userName}</p>
+                            <p style={{ fontWeight: "700", color:"#FFC743", fontSize:'14px' }}>{this.state.payLoad?.isUpdatedProfile ? this.state.payLoad?.fullName : this.state.payLoad?.userName}</p>
                             <p style={{ fontWeight: "500", marginTop: "-15px", color: "#CD7F32" }}>
                                 Edit Profile &nbsp; <i className="fa fa-angle-right" />
                             </p>
@@ -101,7 +101,9 @@ class Header extends React.Component {
                             <p style={{ fontWeight: "500", color:"#FFC743" }}><img src={chatLeft} style={{width:'24px'}}/>&nbsp; Messages</p>
                             <p style={{ fontWeight: "500", color:"#FFC743" }}><img src={bi_bookmark} style={{width:'24px'}}/>&nbsp; Saved Items</p>
                             <p style={{ fontWeight: "500", color:"#FFC743" }}><img src={bi_info} style={{width:'24px'}}/>&nbsp; About Us</p>
-                            <p style={{ fontWeight: "500", color:"#FFC743" }}><img src={settingsIcon} style={{width:'24px'}}/>&nbsp; Settings</p>
+                            <a href="update_language">
+                            <p style={{ fontWeight: "500", color:"#FFC743" }}><img src={settingsIcon} style={{width:'24px'}}/>&nbsp; Language Settings</p>
+                            </a>
                             
                         </div>
 

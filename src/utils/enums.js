@@ -1,7 +1,7 @@
 export const categoryId = {
-    FAMILY_HEALTH: 7,
-    PERSONAL_HEALTH: 8,
-    COVID19:9,
-    GENETICS:10,
-    FORTHE:11
+    FAMILY_HEALTH: 2,
+    PERSONAL_HEALTH: 3,
+    COVID19:4,
+    GENETICS:5,
+    FORTHE:1
 }

@@ -11,6 +11,7 @@ import Endpoint from "../utils/endpoint";
 import { loginUser, userLoggedIn } from "../utils/auth";
 import toast, { Toaster } from "react-hot-toast";
 import { stateKeys } from "../redux/actions";
+import { reduxState } from "../utils/helpers";
 
 
 const { TabPane } = Tabs;
@@ -21,6 +22,7 @@ export default class Login extends Component {
         this.state = {
             headerTitle:'Sign Up',
             payLoad: JSON.parse(localStorage.getItem(stateKeys.USER)),
+            activeKey: reduxState(stateKeys.ROUTE_KEY, ""),
             // nn : this.props.location?.state?.activeTabKey
         };
     }
@@ -184,8 +186,8 @@ handleSignUp = () => {
                 <div style={{ marginBottom: "100px", paddingLeft: "10px", paddingRight: "10px" }}>
                     <div title="基础用法" padding="0" border="none" className="mt-6">
                         <div className="container-fluid" style={{ marginTop: "100px" }}>
-                            <Tabs defaultActiveKey="1" onChange={this.callback}>
-                                <TabPane tab={<p style={{ fontSize: "16px", marginBottom: "0em" }}>Sign Up</p>} key="1">
+                            <Tabs defaultActiveKey={this.state.activeKey ? this.state.activeKey : "login"} onChange={this.callback}>
+                                <TabPane tab={<p style={{ fontSize: "16px", marginBottom: "0em" }}>Sign Up</p>} key="signup">
                                     <div className="">
                                         <div className="row">
                                             <div className="col-sm-12">
@@ -221,7 +223,7 @@ handleSignUp = () => {
                                         </div>
                                     </div>
                                 </TabPane>
-                                <TabPane tab={<p style={{ fontSize: "16px", marginBottom: "0em" }}>Login</p>} key="2">
+                                <TabPane tab={<p style={{ fontSize: "16px", marginBottom: "0em" }}>Login</p>} key="login">
                                 <div className="">
                                         <div className="row">
                                         <div className="col-sm-12">

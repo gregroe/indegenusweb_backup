@@ -9,7 +9,13 @@ import Endpoint from "./utils/endpoint";
 
 import store from "./redux/store";
 
-
+import { setConfig } from 'react-google-translate'
+ 
+setConfig({
+  clientEmail: "miracleoghenemado@gmail.com" ?? '',
+  privateKey: "AIzaSyA8WTveS9skaKR9ajvmyy6CLsZAFsIuPOo" ?? '',
+  projectId: "winter-justice-327304" ?? ''
+})
 
 Endpoint.init();
 ReactDOM.render(

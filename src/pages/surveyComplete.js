@@ -6,6 +6,7 @@ import { Fade } from "reactstrap";
 import { Carousel } from "antd";
 import Header from "../layouts/front_header";
 import surveyComp from "../assets/images/surveycomp.png";
+import {StageSpinner } from "react-spinners-kit";
 
 import { enquireScreen } from "enquire-js";
 
@@ -39,6 +40,10 @@ class SurveyComplete extends React.Component {
         }
     }
     componentDidMount() {
+setTimeout(() => {
+    $("#preloader").fadeOut();
+    
+}, 2000);
         window.scroll(0, 0);
         enquireScreen((b) => {
             this.setState({
@@ -51,6 +56,11 @@ class SurveyComplete extends React.Component {
         const{isMobile} = this.state;
         return (
             <>
+            <div id="preloader">
+                    <div id="status">
+                        <StageSpinner color="#FFB43A" backColor="#FFF" frontColor="#FFF" size={50} />
+                    </div>
+                </div>
             <Header isHeader={"Survey"} topDetails={true}/>
                 {this.state.regionSelect ? <Fade>
                     <div className="conts" style={{ background: "#FFF", width: "100%", height: "100vh", marginTop:'100px'}}>

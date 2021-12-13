@@ -15,7 +15,10 @@ import Profile from "./pages/profile";
 import SurveyComplete from "./pages/surveyComplete";
 import HealthReport from "./pages/healthReport";
 import ProfileSetup from "./pages/profileSetup";
+import TestLang from "./pages/testLang";
 import Login from "./pages/login";
+import UpdateLanguage from "./pages/updateLanguage";
+import UpdateSurveyEntries from "./pages/updateSurveyEntries";
 import { enquireScreen } from "enquire-js";
 import { stateKeys } from "./redux/actions";
 //import {AuthRoute} from "./components/Authenticator/Authenticate"
@@ -54,6 +57,9 @@ export class App extends Component {
                             <Route path={"survey_complete"} element={<SurveyComplete />} />
                             <Route path={"healthReport"} element={<HealthReport />} />
                             <Route path={"profile_setup"} element={<ProfileSetup />} />
+                            <Route path={"test_lang"} element={<TestLang />} />
+                            <Route path={"update_language"} element={<UpdateLanguage />} />
+                            <Route path={"updateSurveyEntries"} element={<UpdateSurveyEntries />} />
                         </Routes>
                     </Router>
                 )}

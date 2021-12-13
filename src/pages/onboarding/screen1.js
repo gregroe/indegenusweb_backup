@@ -85,9 +85,9 @@ class ScreenOne extends React.Component {
                                 <h4 style={{ color: "#FFF", fontWeight: "500", fontSize: "20px", marginTop: "-12px" }}>Health Risk Assesment</h4>
 
                                 <div className="text-center" style={{marginTop:'40px'}}>
-                                    <Link to="/choose_data">
+                                    <a href="/choose_data">
                                     <button style={{ width: "100%", height: "45px", background: "#FFB43A", border: "none", borderRadius: "12px", fontSize: "18px", fontWeight: "500", color:"#000" }}>Start</button>
-                                    </Link>
+                                    </a>
                                 </div>
                             </div>
                         </div>

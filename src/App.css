@@ -182,6 +182,12 @@ border-radius: 9px 9px 0px 0px;
   background: linear-gradient(90deg, #46A5BC 0%, #96E6FA 69.79%);
 border-radius: 9px 9px 0px 0px;
 }
+.report-col{
+  background: #E5AF46;
+  border-radius: 9px 9px 0px 0px;
+}
+
+
 .forthe{
   background: linear-gradient(90deg, #894D70 0%, #DD7CB5 65.63%);
 border-radius: 9px 9px 0px 0px;
@@ -324,4 +330,26 @@ border-radius: 9px 9px 0px 0px;
   padding: 8px 11px 8px!important; 
   border: 2px solid #d9d9d9!important;
   border-radius: 10px!important;
+}
+.goog-te-banner-frame {
+display: none!important;
+}
+
+#goog-gt-tt {
+  display: none!important;
+
+}
+
+.goog-te-gadget {
+
+  padding: 20px!important;
+}
+
+.goog-te-combo, .goog-te-banner *, .goog-te-ftab *, .goog-te-menu *, .goog-te-menu2 *, .goog-te-balloon * {
+  font-family: 'Quicksand', sans-serif!important;
+  font-size: 10pt;
+  width: 100%!important;
+  height: 39px!important;
+  border-radius: 8px!important;
+  padding: 10px!important
 }

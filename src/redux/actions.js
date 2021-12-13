@@ -19,7 +19,8 @@ export const stateKeys = {
     CART: '__cart',
     USER: '_IDGUSER_',
     TOAST: '__toast',
-    SUB_CATEGORY_ID:"SUB__ID"
+    SUB_CATEGORY_ID:"SUB__ID",
+    ROUTE_KEY:'__onboardRoute__',
 };
 export const BUG_ADDED = "BUG_ADDED";
 export const BUG_REMOVED = "BUG_REMOVED";

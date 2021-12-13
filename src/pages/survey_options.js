@@ -122,9 +122,11 @@ getGLobalState = () => {
                                                                 </p>
                                                                 <br />
                                                                 {x.hasQuestions && x.isConducted ? (
-                                                                    <button className="btn comp-btn-outline">
-                                                                        <i className="fa fa-check-circle" /> &nbsp; Completed
-                                                                    </button>
+                                                                    <Link  to="/updateSurveyEntries" state={{ from: 'occupation' }}>
+                                                                        <button className="btn comp-btn-outline" onClick={() => this.setGlobalState(x.subCategoryId)}>
+                                                                        <i className="fa fa-edit" /> &nbsp; Update entries
+                                                                        </button>
+                                                                    </Link>
                                                                 ) : x.hasQuestions && !x.isConducted ? (
                                                                     <Link 
                                                                     to="/surveyQuestions"

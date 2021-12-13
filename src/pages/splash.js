@@ -4,6 +4,8 @@ import bottomBorder from "../assets/images/bottomBorder.png";
 import { Link } from "react-router-dom";
 import {stateKeys} from "../redux/actions"
 import {userLoggedIn, loginUser} from "../utils/auth"
+import { reduxState, setReduxState } from "../utils/helpers";
+import { width } from "dom-helpers";
 class Splash extends React.Component {
     state = {
         hasError: false,
@@ -12,6 +14,10 @@ class Splash extends React.Component {
         payLoad: JSON.parse(localStorage.getItem(stateKeys.USER)),
 
     };
+    setGlobalState = (data) => {
+        // data.preventDefault();
+        setReduxState(data, stateKeys.ROUTE_KEY);
+    }
     InitializeUser = () => {
         if(userLoggedIn()){
             loginUser(this.state.payLoad?.token, this.state.payLoad, true);   
@@ -26,10 +32,16 @@ class Splash extends React.Component {
     render() {
         return (
             <>
-                <div style={{ background: "#0B0B0B", width: "100%", height: "100vh", textAlign: "center" }} className="splasho">
-                    <img src={splashLogo} style={{ width: "181px", marginTop: "200px" }} />
+                <div style={{ background: "#0B0B0B", width: "100%", height: "100vh", textAlign: "center", float:'left' }} className="splasho">
+               <div style={{width:'100%', marginTop:'100px'}}>
+               <Link id="" to="user_validation" style={{color:'#CB9748'}} onClick={() => this.setGlobalState('login')}>
+                        
+                        Already a member? Login here
+                    </Link>
+               </div>
+                    <img src={splashLogo} style={{ width: "181px", marginTop: "100px" }} />
 
-                    <Link id="get__started1" to="welcome">
+                    <Link id="get__started1" to="welcome" onClick={() => this.setGlobalState('signup')}>
                         
                         Get Started
                     </Link>

@@ -8,6 +8,7 @@ import {Fade} from "reactstrap"
 import { stateKeys } from "../redux/actions";
 import { userLoggedIn, logOutUser } from "../utils/auth";
 import { Link } from "react-router-dom";
+import {StageSpinner } from "react-spinners-kit";
 
 export default class Profile extends Component {
     constructor(props) {
@@ -23,11 +24,19 @@ export default class Profile extends Component {
        
     }
     componentDidMount() {
+       
+            
+setTimeout(() => {
+    var html = document.getElementsByTagName("html")[0].getAttribute("lang");
+            console.log(html)
+            this.setState({currentLang: html})
+}, 2000);
+        console.log(this.state.payLoad)
         window.scroll(0, 0);
 this.InitializeUser();
         setTimeout(() => {
             $("#preloader").fadeOut();
-        }, 2000);
+        }, 3000);
     }
 
     render() {
@@ -35,19 +44,19 @@ this.InitializeUser();
             <>
             <Fade>
                 <Header isHeader={"Profile"} topDetails={true} />
-                {/* <div id="preloader">
+                <div id="preloader">
                 <div id="status">
                     <StageSpinner color="#FFB43A" backColor="#FFF" frontColor="#FFF" size={50} />
                 </div>
-            </div> */}
+            </div>
 
                 <div style={{ marginBottom: "100px", paddingBottom: "50px" }}>
                     <div title="基础用法" padding="0" border="none" className="mt-6">
-                        <div class="user-banner -large" style={{ backgroundImage: `url(${profBanner})`, marginTop: "-3px" }}></div>
+                        <div class="user-banner -large" style={this.state.currentLang != "en" ? { backgroundImage: `url(${profBanner})`, marginTop: "-42px" } : { backgroundImage: `url(${profBanner})`, marginTop: "-3px" }}></div>
 
                         <div style={{ textAlign: "center", width: "100%", marginTop: "-71px" }}>
                             <div class="user-avatar -large" style={{ backgroundImage: `url(${profileRound})`, textAlign: "center" }}></div>
-                            <p style={{ fontWeight: "700" }}>{this.state.payLoad?.isUpdatedProfile ? this.state.payLoad?.fulllName : this.state.payLoad?.userName}</p>
+                            <p style={{ fontWeight: "700" }}>{this.state.payLoad?.isUpdatedProfile ? this.state.payLoad?.fullName : this.state.payLoad?.userName}</p>
                             <Link to="/profile_setup">
                             <p style={{ fontWeight: "500", marginTop: "-15px", color: "#CD7F32" }}>
                                 Update Profile &nbsp; <i className="fa fa-angle-right" />

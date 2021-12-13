@@ -67,6 +67,36 @@ const Endpoint = {
     postSurveyResponse: (userId, subCategoryId, data) => {
         return axios.post(`SurveyCategory/PostSurveyResponse?userId=${userId}&surveySubCategoryId=${subCategoryId}`,data, headers)
     },  
+
+    getUserProfile: (userId) => {
+        return axios.get(`User/StampUser?userId=${userId}`, headers)
+    },
+    getSexualOrientation: () => {
+        return axios.get(`SurveyCategory/GetSexualOrientation`, headers)
+    },
+    getGender: () => {
+        return axios.get(`SurveyCategory/GetGender`, headers)
+    },
+    getSecurityQuestions: () => {
+        return axios.get(`SurveyCategory/GetASecurityQuestions`, headers)
+    },
+    getAncestry: () => {
+        return axios.get(`SurveyCategory/GetAncestry`, headers)
+    },
+    getResponseType: () => {
+        return axios.get(`SurveyCategory/GetResponseType`, headers)
+    },
+    getNationality: () => {
+        return axios.get(`SurveyCategory/GetNationality`, headers)
+    },
+    updateUserProfile: (data, userId) => {
+        return axios.post(`User/StampUseProfile?userId=${userId}`, data, headers);
+    },
+    getUserSurveyEntries: (userId, subCategoryId) => {
+        return axios.get(`SurveyCategory/GetUserSurveyEntries?surveySubCategoryId=${subCategoryId}&userId=${userId}`, headers)
+    },
+    
+    
 };
 
 export default Endpoint
