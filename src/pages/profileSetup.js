@@ -29,40 +29,39 @@ export default class ProfileSetup extends Component {
             headerTitle: "Sign Up",
             pageIindex: 1,
             payLoad: JSON.parse(localStorage.getItem(stateKeys.USER)),
-            
         };
         this.onChangeValue = this.onChangeValue.bind(this);
         this.onChangeGenderValue = this.onChangeGenderValue.bind(this);
     }
     loadDataError = (error) =>
-    toast.error(error, {
-        style: {
-            border: "1px solid #DC2626",
-            padding: "16px",
-            background: "#DC2626",
-            color: "#fff",
-            borderRadius: "3rem",
-        },
-        iconTheme: {
-            primary: "#FFFAEE",
-            secondary: "#DC2626",
-        },
-    });
+        toast.error(error, {
+            style: {
+                border: "1px solid #DC2626",
+                padding: "16px",
+                background: "#DC2626",
+                color: "#fff",
+                borderRadius: "3rem",
+            },
+            iconTheme: {
+                primary: "#FFFAEE",
+                secondary: "#DC2626",
+            },
+        });
 
     loadDataSuccess = (msg) =>
-    toast.success(msg, {
-        style: {
-            border: "1px solid #04AA6D",
-            padding: "16px",
-            background: "#04AA6D",
-            color: "#fff",
-            borderRadius: "3rem",
-        },
-        iconTheme: {
-            primary: "#04AA6D",
-            secondary: "#fff",
-        },
-    });
+        toast.success(msg, {
+            style: {
+                border: "1px solid #04AA6D",
+                padding: "16px",
+                background: "#04AA6D",
+                color: "#fff",
+                borderRadius: "3rem",
+            },
+            iconTheme: {
+                primary: "#04AA6D",
+                secondary: "#fff",
+            },
+        });
     handleInput = (event) => {
         this.setState({ isVerified: null });
         const target = event.target;
@@ -80,15 +79,15 @@ export default class ProfileSetup extends Component {
         this.fetchAncestry();
         this.fetchResponseType();
         this.fetchNationality();
+        this.fetchRegions();
         //$("#preloader").fadeOut();
     };
     fetchUserProfile = () => {
         var split = this.state.payLoad?.fullName.split(" ");
         Endpoint.getUserProfile(this.state.payLoad?.userId)
             .then((res) => {
-                this.setState({ userDetails: res.data, activeSexualOrientation:res.data?.sexualOrientationId, activeGender: res.data?.genderId, first_name: split[0], last_name : split[1]  });
-        $("#preloader").fadeOut();
-
+                this.setState({ userDetails: res.data, activeSexualOrientation: res.data?.sexualOrientationId, activeGender: res.data?.genderId, first_name: split[0], last_name: split[1] });
+                $("#preloader").fadeOut();
             })
             .catch((error) => {
                 this.loadDataError(error, this);
@@ -112,10 +111,19 @@ export default class ProfileSetup extends Component {
                 this.loadDataError(error, this);
             });
     };
-    fetchNationality= () => {
+    fetchNationality = () => {
         Endpoint.getNationality()
             .then((res) => {
                 this.setState({ nationality: res.data });
+            })
+            .catch((error) => {
+                this.loadDataError(error, this);
+            });
+    };
+    fetchRegions = () => {
+        Endpoint.getRegions()
+            .then((res) => {
+                this.setState({ regionList: res.data });
             })
             .catch((error) => {
                 this.loadDataError(error, this);
@@ -158,74 +166,76 @@ export default class ProfileSetup extends Component {
         }
     };
     handleSexualOrientation = (data) => {
-        console.log(data)
+        console.log(data);
         // var navItems = document.querySelectorAll(".sex__or");
         // navItems.forEach(function (e, i) {
-        //     e.setAttribute("checked", false);        
+        //     e.setAttribute("checked", false);
         // })
         // $("#"+data+"so").attr("checked", true);
-    }
+    };
     onChangeValue(event) {
         console.log(event.target.value);
-        this.setState({activeSexualOrientation:event.target.value})
-      }
-      onChangeGenderValue(event) {
+        this.setState({ activeSexualOrientation: event.target.value });
+    }
+    onChangeGenderValue(event) {
         console.log(event.target.value);
-        this.setState({activeGender:event.target.value})
-      }
-    
-      executeUpdate = (e) => {
-          e.preventDefault();
-    $("#preloader").fadeIn();
+        this.setState({ activeGender: event.target.value });
+    }
+
+    executeUpdate = (e) => {
+        e.preventDefault();
+        //if(this.state.dob == null || this.state.genderId == null || th)
+        $("#preloader").fadeIn();
 
         const payload = {
-            "firstname": this.state.first_name,
-            "lastname": this.state.last_name,
-            "mobileNumber": this.state.mobile_number,
+            firstname: this.state.first_name,
+            lastname: this.state.last_name,
+            mobileNumber: this.state.mobile_number,
             //"email": "string",
-            "dob": this.state.dob,
-            "isTextMessageContact": true,
-            "genderId": parseInt(this.state.activeGender),
-            "ancestryId": parseInt(this.state?.ancestry_select),
-            "nationalityId": parseInt(this.state.nationality_select),
+            dob: this.state.dob,
+            isTextMessageContact: true,
+            genderId: parseInt(this.state.activeGender),
+            ancestryId: parseInt(this.state?.ancestry_select),
+            nationalityId: parseInt(this.state.nationality_select),
             //"platformDiscoveryId": 0,
-            "referalName": this.state.referal,
-            "salivaBloodResponse": parseInt(this.state.saliva_blood),
-            "clinicalTrialsResponse": parseInt(this.state.clinical_trials),
-            "memberBlackCommunityResponse": parseInt(this.state.black_community),
-            "armedForceVeteranResponse": parseInt(this.state.armed_forces),
+            referalName: this.state.referal,
+            salivaBloodResponse: parseInt(this.state.saliva_blood),
+            clinicalTrialsResponse: parseInt(this.state.clinical_trials),
+            memberBlackCommunityResponse: parseInt(this.state.black_community),
+            armedForceVeteranResponse: parseInt(this.state.armed_forces),
+            regionId: parseInt(this.state.region_select),
             //"weight": "string",
             //"height": "string",
-            "sexualOrientationId": parseInt(this.state.activeSexualOrientation)
-          }
+            sexualOrientationId: parseInt(this.state.activeSexualOrientation),
+        };
 
-          Endpoint.updateUserProfile(payload, this.state.payLoad?.userId)
+        Endpoint.updateUserProfile(payload, this.state.payLoad?.userId)
             .then((res) => {
                 $("#preloader").fadeOut();
 
                 this.loadDataSuccess("Profile update was successful");
-                var ls = JSON.parse(localStorage.getItem(stateKeys.USER));
-                console.log(ls, "ls")
-                ls.fullName = this.state.first_name + " " + this.state.last_name;
-                ls.isUpdatedProfile = true
-               console.log(ls, "ls")
+                $("#preloader").fadeIn();
 
-                localStorage.removeItem(stateKeys.USER)
                 setTimeout(() => {
-                localStorage.setItem(stateKeys.USER, JSON.stringify(ls));
-                    
-                }, 1000);
+                    window.location.href = "/survey"
+                }, 1200);
+                var ls = JSON.parse(localStorage.getItem(stateKeys.USER));
+                //console.log(ls, "ls");
+                ls.fullName = this.state.first_name + " " + this.state.last_name;
+                ls.isUpdatedProfile = true;
+                //console.log(ls, "ls");
 
+                localStorage.removeItem(stateKeys.USER);
+                setTimeout(() => {
+                    localStorage.setItem(stateKeys.USER, JSON.stringify(ls));
+                }, 1000);
             })
             .catch((error) => {
                 $("#preloader").fadeOut();
                 this.loadDataError(error.statusText);
-
             });
-      }
+    };
     componentDidMount() {
-        
-
         window.scroll(0, 0);
         this.loadDataFromServer();
         // setTimeout(() => {
@@ -238,7 +248,7 @@ export default class ProfileSetup extends Component {
         require("antd/dist/antd.css");
         return (
             <>
-             <Toaster position="top-center"/>
+                <Toaster position="top-center" />
                 <Fade>
                     <Header isHeader={"Profile Setup"} topDetails={true} />
                     <div id="preloader">
@@ -258,14 +268,28 @@ export default class ProfileSetup extends Component {
                                                     <label className="label-control" style={{ fontWeight: "700", fontSize: "14px" }}>
                                                         First Name
                                                     </label>
-                                                    <input className="form-control" type="text" style={{ background: "#EDEDED", border: "none" }} name="first_name" defaultValue={userDetails?.firstname} onChange={this.handleInput} />
+                                                    <input
+                                                        className="form-control"
+                                                        type="text"
+                                                        style={{ background: "#EDEDED", border: "none", fontWeight: "700" }}
+                                                        name="first_name"
+                                                        defaultValue={userDetails?.firstname}
+                                                        onChange={this.handleInput}
+                                                    />
                                                 </div>
 
                                                 <div className="form-group">
                                                     <label className="label-control" style={{ fontWeight: "700", fontSize: "14px" }}>
                                                         Last Name
                                                     </label>
-                                                    <input className="form-control" type="text" style={{ background: "#EDEDED", border: "none" }} name="last_name" defaultValue={userDetails?.lastname} onChange={this.handleInput} />
+                                                    <input
+                                                        className="form-control"
+                                                        type="text"
+                                                        style={{ background: "#EDEDED", border: "none", fontWeight: "700" }}
+                                                        name="last_name"
+                                                        defaultValue={userDetails?.lastname}
+                                                        onChange={this.handleInput}
+                                                    />
                                                 </div>
                                                 <div className="form-group">
                                                     <label className="label-control" style={{ fontWeight: "700", fontSize: "14px" }}>
@@ -279,7 +303,14 @@ export default class ProfileSetup extends Component {
                                                     <label className="label-control" style={{ fontWeight: "700", fontSize: "14px" }}>
                                                         Mobile Number
                                                     </label>
-                                                    <input className="form-control" type="text" style={{ background: "#EDEDED", border: "none" }} name="mobile_number" defaultValue={userDetails?.mobileNumber} onChange={this.handleInput} />
+                                                    <input
+                                                        className="form-control"
+                                                        type="text"
+                                                        style={{ background: "#EDEDED", border: "none", fontWeight: "700" }}
+                                                        name="mobile_number"
+                                                        defaultValue={userDetails?.mobileNumber}
+                                                        onChange={this.handleInput}
+                                                    />
                                                     {/* <p style={{marginTop:'10px', fontSize:'11px', fontWeight:'700'}}>
                                         <input className="" checked={userDetails?.isTextMessageContact ? true : false} type="checkbox" style={{ background: "#EDEDED", border: "none" }} name="isMobileContacted" onChange={this.handleInput}/> &nbsp; I want to be contacted via text message
                                         </p> */}
@@ -296,17 +327,23 @@ export default class ProfileSetup extends Component {
                                                     this.state.genderList.map((x) => {
                                                         return (
                                                             <>
-                                                               <div className="form-group" style={{ marginTop: "-24px" }}>
-                                                    <input className="" checked={this.state.activeGender == x.id} type="radio" style={{ background: "#EDEDED", border: "none" }} value={x.id != null ? x.id : null} name="gender"  onChange={this.onChangeGenderValue} />
-                                                    <label className="label-control" style={{ fontWeight: "500", fontSize: "14px" }}>
-                                                        &nbsp; &nbsp; {x.name}
-                                                    </label>
-                                                </div>
+                                                                <div className="form-group" style={{ marginTop: "-24px" }}>
+                                                                    <input
+                                                                        className=""
+                                                                        checked={this.state.activeGender == x.id}
+                                                                        type="radio"
+                                                                        style={{ background: "#EDEDED", border: "none" }}
+                                                                        value={x.id != null ? x.id : null}
+                                                                        name="gender"
+                                                                        onChange={this.onChangeGenderValue}
+                                                                    />
+                                                                    <label className="label-control" style={{ fontWeight: "500", fontSize: "14px" }}>
+                                                                        &nbsp; &nbsp; {x.name}
+                                                                    </label>
+                                                                </div>
                                                             </>
                                                         );
                                                     })}
-                                               
-                                                
 
                                                 <div className="form-group">
                                                     <label className="label-control" style={{ fontWeight: "700", fontSize: "14px" }}>
@@ -318,9 +355,16 @@ export default class ProfileSetup extends Component {
                                                         return (
                                                             <>
                                                                 <div className="form-group" style={{ marginTop: "-24px" }}>
-                                                                    <input className="sex__or" id={x.id+"so"} type="radio" style={{ background: "#EDEDED", border: "none" }} value={x.id} name="sexual_orientation" 
-                                                                    checked={this.state.activeSexualOrientation == x.id}
-                                                                    onChange={this.onChangeValue} />
+                                                                    <input
+                                                                        className="sex__or"
+                                                                        id={x.id + "so"}
+                                                                        type="radio"
+                                                                        style={{ background: "#EDEDED", border: "none" }}
+                                                                        value={x.id}
+                                                                        name="sexual_orientation"
+                                                                        checked={this.state.activeSexualOrientation == x.id}
+                                                                        onChange={this.onChangeValue}
+                                                                    />
                                                                     <label className="label-control" style={{ fontWeight: "500", fontSize: "14px" }}>
                                                                         &nbsp; &nbsp; {x.name}
                                                                     </label>
@@ -328,8 +372,6 @@ export default class ProfileSetup extends Component {
                                                             </>
                                                         );
                                                     })}
-
-                                               
 
                                                 <div className="form-group">
                                                     <label className="label-control" style={{ fontWeight: "700", fontSize: "14px" }}>
@@ -341,7 +383,9 @@ export default class ProfileSetup extends Component {
                                                             this.state.ancestryList.map((x) => {
                                                                 return (
                                                                     <>
-                                                                        <option selected={x.id == userDetails?.ancestryId} value={x.id}>{x.name}</option>
+                                                                        <option selected={x.id == userDetails?.ancestryId} value={x.id}>
+                                                                            {x.name}
+                                                                        </option>
                                                                     </>
                                                                 );
                                                             })}
@@ -350,9 +394,16 @@ export default class ProfileSetup extends Component {
 
                                                 <div className="form-group">
                                                     <label className="label-control" style={{ fontWeight: "700", fontSize: "14px" }}>
-                                                        Who refered you?
+                                                        Who referred you?
                                                     </label>
-                                                    <input className="form-control" type="text" defaultValue={userDetails?.referalName} style={{ background: "#EDEDED", border: "none" }} name="referal" onChange={this.handleInput} />
+                                                    <input
+                                                        className="form-control"
+                                                        type="text"
+                                                        defaultValue={userDetails?.referalName}
+                                                        style={{ background: "#EDEDED", fontWeight: "700", border: "none" }}
+                                                        name="referal"
+                                                        onChange={this.handleInput}
+                                                    />
                                                 </div>
                                             </div>
 
@@ -379,18 +430,20 @@ export default class ProfileSetup extends Component {
                                             <div className="col-sm-10" style={{ border: "2px solid #C4C4C4", borderRadius: "15px", padding: "15px" }}>
                                                 <div className="form-group">
                                                     <label className="label-control" style={{ fontWeight: "700", fontSize: "14px" }}>
-                                                        Would you support the ByUsForAll movement by givingyour saliva and blood sample
+                                                        Would you support the ByUsForAll movement by sharing your saliva or blood sample
                                                     </label>
                                                     <select className="form-control" onChange={this.handleInput} name="saliva_blood">
                                                         <option></option>
-                                                        {this.state.responseType && this.state.responseType.map(x => {
-                                                            return(
-                                                                <>
-                                                                <option selected={this.state.userDetails?.salivaBloodResponse == x.id} value={x.id}>{x.name}</option>
-                                                                </>
-                                                            )
-                                                        })}
-                                                        
+                                                        {this.state.responseType &&
+                                                            this.state.responseType.map((x) => {
+                                                                return (
+                                                                    <>
+                                                                        <option selected={this.state.userDetails?.salivaBloodResponse == x.id} value={x.id}>
+                                                                            {x.name}
+                                                                        </option>
+                                                                    </>
+                                                                );
+                                                            })}
                                                     </select>
                                                 </div>
 
@@ -399,14 +452,17 @@ export default class ProfileSetup extends Component {
                                                         Would you like to learn about clinical trials you may be eligible for?
                                                     </label>
                                                     <select className="form-control" onChange={this.handleInput} name="clinical_trials">
-                                                    <option></option>
-                                                        {this.state.responseType && this.state.responseType.map(x => {
-                                                            return(
-                                                                <>
-                                                                <option selected={this.state.userDetails?.clinicalTrialsResponse == x.id} value={x.id}>{x.name}</option>
-                                                                </>
-                                                            )
-                                                        })}
+                                                        <option></option>
+                                                        {this.state.responseType &&
+                                                            this.state.responseType.map((x) => {
+                                                                return (
+                                                                    <>
+                                                                        <option selected={this.state.userDetails?.clinicalTrialsResponse == x.id} value={x.id}>
+                                                                            {x.name}
+                                                                        </option>
+                                                                    </>
+                                                                );
+                                                            })}
                                                     </select>
                                                 </div>
 
@@ -416,13 +472,16 @@ export default class ProfileSetup extends Component {
                                                     </label>
                                                     <select className="form-control" onChange={this.handleInput} name="black_community">
                                                         <option></option>
-                                                        {this.state.responseType && this.state.responseType.map(x => {
-                                                            return(
-                                                                <>
-                                                                <option selected={this.state.userDetails?.memberBlackCommunityResponse == x.id} value={x.id}>{x.name}</option>
-                                                                </>
-                                                            )
-                                                        })}
+                                                        {this.state.responseType &&
+                                                            this.state.responseType.map((x) => {
+                                                                return (
+                                                                    <>
+                                                                        <option selected={this.state.userDetails?.memberBlackCommunityResponse == x.id} value={x.id}>
+                                                                            {x.name}
+                                                                        </option>
+                                                                    </>
+                                                                );
+                                                            })}
                                                     </select>
                                                 </div>
 
@@ -432,34 +491,54 @@ export default class ProfileSetup extends Component {
                                                     </label>
                                                     <select className="form-control" onChange={this.handleInput} name="armed_forces">
                                                         <option></option>
-                                                        {this.state.responseType && this.state.responseType.map(x => {
-                                                            return(
-                                                                <>
-                                                                <option selected={this.state.userDetails?.armedForceVeteranResponse == x.id} value={x.id}>{x.name}</option>
-                                                                </>
-                                                            )
-                                                        })}
+                                                        {this.state.responseType &&
+                                                            this.state.responseType.map((x) => {
+                                                                return (
+                                                                    <>
+                                                                        <option selected={this.state.userDetails?.armedForceVeteranResponse == x.id} value={x.id}>
+                                                                            {x.name}
+                                                                        </option>
+                                                                    </>
+                                                                );
+                                                            })}
                                                     </select>
                                                 </div>
 
                                                 <div className="form-group">
                                                     <label className="label-control" style={{ fontWeight: "700", fontSize: "14px" }}>
-                                                        Current Location
+                                                        Current Region
                                                     </label>
                                                     {/* <select className="form-control">
                                                         <option></option>
                                                         <option>Allabama</option>
                                                     </select> */}
-                                                    <select className="form-control" style={{ marginTop: "5px" }} onChange={this.handleInput} name="nationality_select">
+                                                    {/* <select className="form-control" style={{ marginTop: "5px" }} onChange={this.handleInput} name="nationality_select">
                                                         <option></option>
 
-                                                        {this.state.nationality && this.state.nationality.map(x => {
-                                                            return(
-                                                                <>
-                                                                <option selected={this.state.userDetails?.nationalityId == x.id} value={x.id}>{x.name}</option>
-                                                                </>
-                                                            )
-                                                        })}
+                                                        {this.state.nationality &&
+                                                            this.state.nationality.map((x) => {
+                                                                return (
+                                                                    <>
+                                                                        <option selected={this.state.userDetails?.nationalityId == x.id} value={x.id}>
+                                                                            {x.name}
+                                                                        </option>
+                                                                    </>
+                                                                );
+                                                            })}
+                                                    </select> */}
+
+                                                    <select className="form-control" onChange={this.handleInput} name="region_select">
+                                                        <option></option>
+                                                        {this.state.regionList &&
+                                                            this.state.regionList.map((x) => {
+                                                                return (
+                                                                    <>
+                                                                         <option selected={this.state.userDetails?.regionId == x.id} value={x.id}>
+                                                                            {x.name}
+                                                                        </option>
+                                                                    </>
+                                                                );
+                                                            })}
                                                     </select>
                                                 </div>
                                             </div>

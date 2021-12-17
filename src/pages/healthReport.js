@@ -15,7 +15,8 @@ import result1 from "../assets/images/Results0.png";
 import result2 from "../assets/images/Results1.png";
 import fort from "../assets/images/fort.png";
 import genet from "../assets/images/genet.png";
-import reportImg from "../assets/images/nott.png";
+import reportImg from "../assets/images/logoIndy.png";
+import noReportImg from "../assets/images/nott.png";
 
 import { Empty } from "antd";
 import { categoryId } from "../utils/enums";
@@ -60,6 +61,7 @@ export default class HealthReport extends Component {
         reduxState("sub__id", "k");
     };
     showRelatedLink = (data, title) => {
+        if(!data) return;
         $("#preloader").fadeIn();
         Endpoint.getReportLinksByCategory(this.state.payLoad?.userId, data)
             .then((res) => {
@@ -110,8 +112,8 @@ export default class HealthReport extends Component {
                     <div style={{ marginBottom: "0px", paddingLeft: "10px", paddingRight: "10px" }}>
                         <div title="-" padding="0" border="none" className="mt-6">
                             <div className="container-fluid">
-                                <h3 style={{ fontSize: "23px", fontWeight: "700" }}>Personalized Health Risk Assessment</h3>
-                                <p style={{ fontSize: "14px", marginBottom: "40px", color: "#8D8D8D", fontWeight: "700" }}>Based on your survey responses, you may be at increased risk for:</p>
+                                <h3 style={{ fontSize: "23px", fontWeight: "700" }}>Personalized Health Risk Report</h3>
+                                <p style={{ fontSize: "14px", marginBottom: "40px", color: "#8D8D8D", fontWeight: "700" }}>Based on your survey responses, you may be at increased risk for the following:</p>
                             </div>
                         </div>
                     </div>
@@ -130,7 +132,7 @@ export default class HealthReport extends Component {
          <h2 style={{fontWeight:'700'}}>We’ve got nothing for you</h2>
          <h3 style={{color:'#8D8D8D'}}>because you’ve not given us 
      enough information</h3>
-     <img src={reportImg} style={{width:'100%'}}/>
+     <img src={noReportImg} style={{width:'100%'}}/>
      <h2 style={{fontWeight:'700'}}>Complete a survey</h2>
          <p style={{color:'#8D8D8D'}}>So we can create a health report
 designed just for you</p>
@@ -147,25 +149,25 @@ designed just for you</p>
                                     ) : null}
 
                                     {x.catrgoryId == categoryId.PERSONAL_HEALTH ? (
-                                        <div class="card" onClick={() => this.showRelatedLink(x.categoryId)} id={categoryId.PERSONAL_HEALTH}>
+                                        <div class="card" onClick={() => this.showRelatedLink(categoryId.PERSONAL_HEALTH, "Personal Health")} id={categoryId.PERSONAL_HEALTH}>
                                             <img src={result} />
                                         </div>
                                     ) : null}
 
                                     {x.catrgoryId == categoryId.COVID19 ? (
-                                        <div class="card" id={categoryId.COVID19} onClick={() => this.showRelatedLink(x.categoryId)}>
+                                        <div class="card" id={categoryId.COVID19} onClick={() => this.showRelatedLink(categoryId.COVID19, "Covid19")}>
                                             <img src={result1} />
                                         </div>
                                     ) : null}
 
                                     {x.catrgoryId == categoryId.FORTHE ? (
-                                        <div class="card" id={categoryId.FORTHE} onClick={() => this.showRelatedLink(x.categoryId)}>
+                                        <div class="card" id={categoryId.FORTHE} onClick={() => this.showRelatedLink(categoryId.FORTHE, "#fortheculture")}>
                                             <img src={fort} />
                                         </div>
                                     ) : null}
 
                                     {x.catrgoryId == categoryId.GENETICS ? (
-                                        <div class="card" id={categoryId.GENETICS} onClick={() => this.showRelatedLink(x.categoryId)}>
+                                        <div class="card" id={categoryId.GENETICS} onClick={() => this.showRelatedLink(categoryId.GENETICS, "Genetics")}>
                                             <img src={genet} />
                                         </div>
                                     ) : null}
@@ -209,16 +211,16 @@ designed just for you</p>
                                     this.state.riskLinks.map((x, i) => {
                                         return (
                                             <div className="container text-white" style={{ background: "#3a3a3a", borderRadius: "10px", minHeight: "300px", marginBottom: "20px", paddingBottom:'20px' }}>
-                                                <p>
-                                                    <a href={x.link} target="_blank" className="text-white" style={{ fontWeight: "700" }}>
-                                                        Personal History of Breast Cancer
-                                                    </a>
+                                                <p style={{fontWeight:'700'}}>
+                                                    
+                                                        {x.title}
+                                                   
                                                 </p>
-                                                <div class="user-banner -large" style={{ marginTop: "-3px" }}>
-                                                    <iframe src={x.link} style={{ minHeight: "180px", overflowY: "hidden" }}></iframe>
+                                                <div class="large" style={{width:'100%', minHeight:'181px', marginTop: "-3px", backgroundImage: `url(${reportImg})`, marginBottom:'10px', backgroundSize:'200px', backgroundRepeat:'no-repeat', backgroundPosition:'center' }}>
+                                                    {/* <iframe src={x.link} style={{ minHeight: "180px", overflowY: "hidden" }}></iframe> */}
                                                 </div>
                                                 <p style={{ fontSize: "11px" }}>
-                                                    If you've been diagnosed with breast cancer, you're 3 to 4 times more likely to develop a new cancer in the other breast or a different part of the same breast...
+                                                    {x.previewText}...
                                                 </p>
                                                 <br/>
                                                <a href={x.link} target="_blank" className="" style={{color:'#FFF'}}>View more</a>
@@ -233,12 +235,15 @@ designed just for you</p>
                         </Collapse.Panel>
                     </Collapse>
                 </div>
+                <div className="container-fluid">
+                <h2>Browse IngyGeneUS Health Videos</h2>
+                </div>
 
-                <div class="scrolling-wrapper-flexbox">
-            
-
-                    <div className="container-fluid">
-                    <h2>Browse IngyGeneUS Videos</h2>
+                <div class="scrolling-wrapper-flexbox" id="">
+                    
+                                <>
+                                {/* <div className="container-fluid"> */}
+                                     <div class="card" style={{width:'300px', height:'200px', marginLeft:'20px'}}>
                         {/*                       
                         <video width="320" height="240" controls>
                             <source src="https://www.youtube.com/watch?v=SGaQ0WwZ_0I" type="video/mp4" />
@@ -247,19 +252,72 @@ designed just for you</p>
                         <iframe
                             width="100%"
                             height="315"
-                            src="https://www.youtube.com/embed/agPsqRDNS3g"
+                            src="https://www.youtube.com/embed/CEnwDButsSE"
                             title="YouTube video player"
                             frameborder="0"
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen
                         ></iframe>
-                        
-
-                        {/* <Empty description={"Nothing to display at this time"}/> */}
-                        {/* <h4>Nothing to display at this time</h4> */}
                     </div>
+
+                    <div class="card" style={{width:'300px', height:'200px', marginLeft:'20px'}}>
+                        {/*                       
+                        <video width="320" height="240" controls>
+                            <source src="https://www.youtube.com/watch?v=SGaQ0WwZ_0I" type="video/mp4" />
+                        </video> */}
+
+                        <iframe
+                            width="100%"
+                            height="315"
+                            src="https://www.youtube.com/embed/8pdVflNf2Eo"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+
+                    <div class="card" style={{width:'300px', height:'200px', marginLeft:'20px'}}>
+                        {/*                       
+                        <video width="320" height="240" controls>
+                            <source src="https://www.youtube.com/watch?v=SGaQ0WwZ_0I" type="video/mp4" />
+                        </video> */}
+
+                        <iframe
+                            width="100%"
+                            height="315"
+                            src="https://www.youtube.com/embed/3rD-biw3aMg"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+
+                    <div class="card" style={{width:'300px', height:'200px', marginLeft:'20px'}}>
+                        {/*                       
+                        <video width="320" height="240" controls>
+                            <source src="https://www.youtube.com/watch?v=SGaQ0WwZ_0I" type="video/mp4" />
+                        </video> */}
+
+                        <iframe
+                            width="100%"
+                            height="315"
+                            src="https://www.youtube.com/embed/iQ9tFNyTS-k"
+                            title="YouTube video player"
+                            frameborder="0"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allowfullscreen
+                        ></iframe>
+                    </div>
+                   
+                    {/* </div> */}
                     
+                                </>
+                   
                 </div>
+              
+              
                 <br />
                 <br />
                 <br />

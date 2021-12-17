@@ -10,6 +10,7 @@ import { userLoggedIn, logOutUser } from "../utils/auth";
 import Endpoint from "../utils/endpoint";
 import { stateKeys } from "../redux/actions";
 import { reduxState, setReduxState } from "../utils/helpers";
+import toast, { Toaster } from "react-hot-toast";
 
 export default class SurveyOptions extends Component {
     constructor(props) {
@@ -24,9 +25,31 @@ export default class SurveyOptions extends Component {
             logOutUser("/user_validation");
         }
     };
-
+    loadDataError = (error) =>
+    toast.error(error, {
+        style: {
+            border: "1px solid #DC2626",
+            padding: "16px",
+            background: "#DC2626",
+            color: "#fff",
+            borderRadius: "3rem",
+        },
+        iconTheme: {
+            primary: "#FFFAEE",
+            secondary: "#DC2626",
+        },
+        duration:10000
+    });
     loadDataFromServer = () => {
-        $("#preloader").fadeIn();
+        if(this.state.payLoad?.regionId == 2 || this.state.payLoad?.regionId == 5)
+            {
+              $("#region__validation").fadeOut();
+              setTimeout(() => {
+              this.loadDataError("Not allowed in your region at the moment. Please check back after a while")
+                  
+              }, 1500);
+            }
+        //$("#preloader").fadeIn();
 
         Endpoint.getSurveyCategories(this.state.payLoad?.userId)
             .then((res) => {
@@ -51,6 +74,9 @@ getGLobalState = () => {
 }
     componentDidMount() {
         window.scroll(0, 0);
+        
+            
+          
         this.loadDataFromServer();
         this.InitializeUser();
         //   setTimeout(() => {
@@ -62,13 +88,16 @@ getGLobalState = () => {
     render() {
         return (
             <>
+
                 <Header isHeader={"Survey"} topDetails={true} />
                 <div id="preloader">
                     <div id="status">
                         <StageSpinner color="#FFB43A" backColor="#FFF" frontColor="#FFF" size={50} />
                     </div>
                 </div>
-                <div style={{ marginBottom: "100px", paddingLeft: "10px", paddingRight: "10px" }}>
+<Toaster position="top-center" />
+
+                <div id="region__validation" style={{ marginBottom: "100px", paddingLeft: "10px", paddingRight: "10px" }}>
                     <div title="基础用法" padding="0" border="none" className="mt-6">
                         <div className="container-fluid">
                             <h3 style={{ fontSize: "23px" }}>Get a personalized health risk report</h3>
@@ -118,9 +147,9 @@ getGLobalState = () => {
                                                                 </p>
                                                                 <br />
                                                                 <p>
-                                                                    <small>{cat.timeAllowed}</small>
+                                                                    <small>{x.timeAllowed}</small>
                                                                 </p>
-                                                                <br />
+                                                            
                                                                 {x.hasQuestions && x.isConducted ? (
                                                                     <Link  to="/updateSurveyEntries" state={{ from: 'occupation' }}>
                                                                         <button className="btn comp-btn-outline" onClick={() => this.setGlobalState(x.subCategoryId)}>
@@ -141,6 +170,7 @@ getGLobalState = () => {
                                                                     </button>
                                                                 )}
                                                             </div>
+                                                            <br />
                                                             <br />
                                                             <br />
                                                         </>

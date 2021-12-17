@@ -11,7 +11,7 @@ import Endpoint from "../utils/endpoint";
 import { loginUser, userLoggedIn } from "../utils/auth";
 import toast, { Toaster } from "react-hot-toast";
 import { stateKeys } from "../redux/actions";
-import { reduxState } from "../utils/helpers";
+import { reduxState, validateEmail } from "../utils/helpers";
 
 
 const { TabPane } = Tabs;
@@ -23,6 +23,7 @@ export default class Login extends Component {
             headerTitle:'Sign Up',
             payLoad: JSON.parse(localStorage.getItem(stateKeys.USER)),
             activeKey: reduxState(stateKeys.ROUTE_KEY, ""),
+            regionId: reduxState(stateKeys.REGION, ""),
             // nn : this.props.location?.state?.activeTabKey
         };
     }
@@ -36,7 +37,13 @@ export default class Login extends Component {
             [name]: value,
         });
     };
-
+onPageValidation = () => {
+    var val_email = validateEmail(this.state.email);
+    if(!val_email){
+        this.loadDataError("Email address is not valid!")
+        return;
+    }
+}
     loadDataError = (error) =>
         toast.error(error, {
             style: {
@@ -62,8 +69,13 @@ export default class Login extends Component {
         console.log(key);
     };
 handleSignUp = () => {
-    if(this.state.email == null || this.state.pass == null){
+    if(this.state.email == null || this.state.pass == null || parseInt(this.state.regionId) <= 0){
         this.loadDataError("Enter email address and password")
+        return;
+    }
+    var val_email = validateEmail(this.state.email);
+    if(!val_email){
+        this.loadDataError("Enter a valid email address")
         return;
     }
     if(this.state.pass !== this.state.confirm_pass){
@@ -75,7 +87,7 @@ handleSignUp = () => {
     const payload = {
             "userName": this.state.email,
             "password": this.state.pass,
-            "nationalityId": 1
+            "regionId": parseInt(this.state.regionId) > 0 ? parseInt(this.state.regionId) : 1
     }
     Endpoint.signup(payload)
     .then((res) => {
@@ -86,7 +98,7 @@ handleSignUp = () => {
         }
         else{
             $("#preloader").fadeOut("slow");
-            this.loadDataError("Email and password could not be validated")
+            this.loadDataError("Oops! something went wrong. Please try again.")
                 return
            
         }
@@ -96,14 +108,14 @@ handleSignUp = () => {
     .catch((error) => {
         //handleFormSubmissionError(error, this);
         console.log(error, "error")
+        $("#preloader").fadeOut("slow");
        
-            this.loadDataError(error.statusText);
+            this.loadDataError(error != null && error.statusText != null ? error.statusText : "Error! User with email already exists");
             this.setState({
                 loginMessage:error.statusText
             })
         
-        $("#preloader").fadeOut("slow");
-            $("#invalidLogin").fadeIn();
+            //$("#invalidLogin").fadeIn();
     })
    
 }
@@ -126,7 +138,7 @@ handleSignUp = () => {
                 loginUser(res.data.token, res.data, true);               
             }
             else{
-                $("#preloader").fadeOut("slow");
+                $("#preloader").fadeOut();
                 this.loadDataError("Email and password could not be validated")
                     return
                

@@ -72,7 +72,7 @@ setTimeout(() => {
                         <img src={surveyComp} style={{width:'100%'}}/>
                         <br/>
                         <br/>
-                        <h3 style={{fontWeight:'700'}}>Your personalized health report</h3>
+                        <h3 style={{fontWeight:'700'}}>Your personalized Health Risk Report</h3>
                         <h3 style={{fontWeight:'700', color:'#8D8D8D'}}>Is Ready</h3>
 
                            <div className="text-center" style={{marginTop:'40px'}}>

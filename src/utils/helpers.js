@@ -270,6 +270,18 @@ export function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
+export function validateEmail(email) {
+    
+    if(email == null || !email.includes("@") || !email.includes(".")){
+        return false
+    }
+    else{
+        //let __email_val = email.split(".")
+        return true
+    }
+    
+}
+
 export function showPageLoader() {
     let els = document.querySelectorAll('#page-loader, #page-loader #loader');
     [...els].forEach(function (el) {

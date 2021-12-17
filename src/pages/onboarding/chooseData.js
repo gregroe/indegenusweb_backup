@@ -3,14 +3,11 @@ import React from "react";
 import { Link } from "react-router-dom";
 import $ from "jquery";
 import { Fade } from "reactstrap";
-import { Carousel } from "antd";
-import girlOne from "../../assets/images/test7.png";
-import girlOneBig from "../../assets/images/test6.png";
-import hands from "../../assets/images/hands7.png";
-import patient from "../../assets/images/patient7.png";
 import { enquireScreen } from "enquire-js";
 import googleTranslateElementInit from "../translate";
-
+import Endpoint from "../../utils/endpoint";
+import { stateKeys } from "../../redux/actions";
+import { setReduxState } from "../../utils/helpers";
 
 const contentStyle = {
     height: "50%",
@@ -25,6 +22,18 @@ class ChooseData extends React.Component {
         error: null,
         info: null,
         regionSelect:true
+    };
+    handleInput = (event) => {
+        this.setState({ isVerified: null });
+        const target = event.target;
+        const value = target.type === "checkbox" ? target.checked : target.value;
+        const name = target.name;
+        
+        setReduxState(value, stateKeys.REGION);
+
+        this.setState({
+            [name]: value,
+        });
     };
     toggleOptionSelect = () => {
         if(this.state.regionSelect){
@@ -41,11 +50,24 @@ class ChooseData extends React.Component {
             })
         }
     }
+    fetchRegions = () => {
+        Endpoint.getRegions()
+            .then((res) => {
+                this.setState({ regionList: res.data });
+            })
+            .catch((error) => {
+                this.loadDataError(error, this);
+            });
+    };
+    setGlobalState = (data) => {
+        // data.preventDefault();
+        setReduxState(data, stateKeys.ROUTE_KEY);
+    }
     componentDidMount() {
-        // googleTranslateElementInit()
+        this.fetchRegions();
         setTimeout(() => {
             var html = document.getElementsByTagName("html")[0].getAttribute("lang");
-console.log(html);
+            console.log(html);
         }, 2000);
         enquireScreen((b) => {
             this.setState({
@@ -67,17 +89,19 @@ console.log(html);
                            <div className="col-sm-12">
                                <div className="form-group">
                                    <label className="label-control" style={{fontWeight:'500', fontSize:'16px'}}>Choose Your Region</label>
-                                   <select className="form-control">
-                                       <option></option>
-                                       <option>Africa</option>
-                                       <option>Asia</option>
-                                       <option>Caribbean</option>
-                                       <option>Europe</option>
-                                       <option>India</option>
-                                       <option>North America</option>
-                                       <option>South America</option>
-                                       <option>United Kingdom</option>
-                                   </select>
+                                   <select className="form-control" onChange={this.handleInput} name="region_select">
+                                                        <option></option>
+                                                        {this.state.regionList &&
+                                                            this.state.regionList.map((x) => {
+                                                                return (
+                                                                    <>
+                                                                        <option value={x.id}>
+                                                                            {x.name}
+                                                                        </option>
+                                                                    </>
+                                                                );
+                                                            })}
+                                                    </select>
                                    </div>
                                </div>
 
@@ -101,7 +125,8 @@ console.log(html);
                        <div className="row" style={{marginTop:'50px', textAlign:'center'}}>
                            <div className="col-sm-10">
                                <div className="form-group text-center">
-                                   <label className="label-control" style={{fontWeight:'500', fontSize:'16px'}}>Choose Your Language</label>
+                                   <label className="label-control" style={{fontWeight:'500', fontSize:'14px'}}>Choose Language</label>
+                                   <p><small>Click continue to proceed with English as your default language</small></p>
                                    {/* <div id="google_translate_element"></div> */}
                                    {/* <select className="form-control" style={{width:"70%", marginLeft:'auto', marginRight:'auto'}}>
                                        <option>English(US)</option>
@@ -116,7 +141,7 @@ console.log(html);
                            </div>
 
                            <div className="text-center" style={{marginTop:'200px'}}>
-                                    <Link to="/user_validation">
+                                    <Link to="/user_validation" onClick={() => this.setGlobalState('signup')}>
                                     <button style={{ width: "100%", height: "45px", background: "#FFB43A", border: "none", borderRadius: "12px", fontSize: "18px", fontWeight: "500", color:"#FFF" }}>Continue</button>
                                     </Link>
                                 </div>

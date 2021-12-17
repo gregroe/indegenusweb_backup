@@ -43,18 +43,14 @@ export function loginUser(token, user, redirect) {
             window.location = "/profile";
             return true;
         }
+        else if(!user.securityQuestion){
+            window.location = "/security_questions";
+            return true;
+        }
         // else if(!user.securityQuestion){
-        //     window.location = "/security_questions";
+        //     window.location = "/profile";
         //     return true;
         // }
-        else if(!user.securityQuestion){
-            window.location = "/profile";
-            return true;
-        }
-        else if(user == "superteller@kulpay"){
-            window.location = "/superteller/index";
-            return true;
-        }
         else{
             return false
         }

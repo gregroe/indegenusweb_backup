@@ -9,13 +9,31 @@ import bulbYellow from "../assets/images/Vector.png"
 import bulb from "../assets/images/bulb.svg"
 import pple from "../assets/images/pple.svg"
 import {Link} from "react-router-dom";
-
+import { stateKeys } from '../redux/actions';
+import { setReduxState } from '../utils/helpers';
+import toast, { Toaster } from "react-hot-toast";
 
 
 class BottomPanel extends React.Component {
   state={
-isActive:'q1'
+isActive:'q1',
+payLoad: JSON.parse(localStorage.getItem(stateKeys.USER)),
   }
+
+  loadDataError = (error) =>
+        toast.error(error, {
+            style: {
+                border: "1px solid #DC2626",
+                padding: "16px",
+                background: "#DC2626",
+                color: "#fff",
+                borderRadius: "3rem",
+            },
+            iconTheme: {
+                primary: "#FFFAEE",
+                secondary: "#DC2626",
+            },
+        });
     componentDidMount(){
       var navItems = document.querySelectorAll(".mobile-bottom-nav__item");
 navItems.forEach(function(e, i) {
@@ -57,6 +75,7 @@ console.log(fuseIndex, "fused");
 
     }
     MenuToggle = (id) => {
+  
 
 
               // var currentNode = document.getElementById(`${id}`);
@@ -69,7 +88,10 @@ console.log(fuseIndex, "fused");
     render() {
       require("../assets/css/navBottom.css");
         return(
+<>
+<Toaster position="top-center" />
 <nav className="mobile-bottom-nav">
+
         <div className="mobile-bottom-nav__item mobile-bottom-nav__item--active" style={{cursor:'pointer'}}  >
         <Link to="/profile" id="profile" onClick={() => this.MenuToggle('profile')}>	
           <div className="mobile-bottom-nav__item-content">
@@ -116,6 +138,7 @@ console.log(fuseIndex, "fused");
           </div>		
         </div>
       </nav>
+      </>
         )
         
 

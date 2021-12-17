@@ -13,6 +13,7 @@ import { reduxState } from "../utils/helpers";
 import Endpoint from "../utils/endpoint";
 import { WhisperSpinner, RainbowSpinner, SwapSpinner, StageSpinner } from "react-spinners-kit";
 import toast, { Toaster } from "react-hot-toast";
+var _ = require('lodash');
 
 const contentStyle = {
     height: "50%",
@@ -199,7 +200,7 @@ class SurveyQuestions extends React.Component {
 
                                                     <img src={lineQuestion} style={{ width: "349px" }} />
                                                     <p style={{ textAlign: "center", width: "100%" }}>
-                                                        <small style={{ textAlign: "center", color: "#298f63" }}>Click on Next if none of the undelisted apply</small>
+                                                        <small style={{ textAlign: "center", color: "#298f63" }}>Click Next if none of the undelisted apply</small>
                                                     </p>
                                                 </div>
                                                 <br />
@@ -244,12 +245,12 @@ class SurveyQuestions extends React.Component {
                                                                                                         <ul style={{ listStyleType: "none", padding: "3px", fontSize: "12px" }}>
                                                                                                             <li>
                                                                                                                 <label>
-                                                                                                                    <input type="checkbox" defaultValue="Vejle" name="city" /> &nbsp; Parent(Mother/Father)
+                                                                                                                    <input type="checkbox" defaultValue="Vejle" name="city" /> &nbsp; Parent (Mother/Father)
                                                                                                                 </label>
                                                                                                             </li>
                                                                                                             <li>
                                                                                                                 <label>
-                                                                                                                    <input type="checkbox" defaultValue="Vejle" name="city" /> &nbsp; Siblings(Sister/Brother)
+                                                                                                                    <input type="checkbox" defaultValue="Vejle" name="city" /> &nbsp; Sibling (Sister/Brother)
                                                                                                                 </label>
                                                                                                             </li>
                                                                                                             <li>
@@ -274,7 +275,7 @@ class SurveyQuestions extends React.Component {
                                                                                                             </li>
                                                                                                             <li>
                                                                                                                 <label>
-                                                                                                                    <input type="checkbox" defaultValue="Vejle" name="city" /> &nbsp; Paternal Aunt/Uncle (Father's side)side)
+                                                                                                                    <input type="checkbox" defaultValue="Vejle" name="city" /> &nbsp; Paternal Aunt/Uncle (Father's side)
                                                                                                                 </label>
                                                                                                             </li>
                                                                                                             <li>

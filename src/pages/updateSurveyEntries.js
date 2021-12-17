@@ -32,11 +32,35 @@ class UpdateSurveyEntries extends React.Component {
             subCatId: reduxState(stateKeys.SUB_CATEGORY_ID, ""),
             payLoad: JSON.parse(localStorage.getItem(stateKeys.USER)),
             returnIds: [],
+            checkedCatIds: []
         };
         this.controlCheck = this.controlCheck.bind(this);
     }
     surveyEntries = () => {
         Endpoint.getUserSurveyEntries(this.state.payLoad?.userId, this.state.subCatId)
+            .then((res) => {
+                //console.log(res.data);
+                this.setState({ entries: res.data });
+                var tempArray = [];
+
+                setTimeout(() => {
+                    res.data.forEach(function(item) {
+                        tempArray.push(item.id);
+                        //console.log(tempArray);
+
+                    });
+                    this.setState({returnIds: tempArray})
+                }, 1500);
+               
+            })
+            .catch((error) => {
+                this.loadDataError(error, this);
+                $("#preloader").fadeOut();
+            });
+
+
+
+            Endpoint.getUserEntryCategory(this.state.payLoad?.userId, this.state.subCatId)
             .then((res) => {
                 console.log(res.data);
                 this.setState({ entries: res.data });
@@ -48,16 +72,9 @@ class UpdateSurveyEntries extends React.Component {
                         console.log(tempArray);
 
                     });
-                    this.setState({returnIds: tempArray})
+                    this.setState({checkedCatIds: tempArray})
                 }, 1500);
-                // console.log(this.state.returnIds, "st");
-                // console.log(tempArray, "temp");
-
-
-                // setTimeout(() => {
-                //    console.log(tempArray) 
-                //    console.log(this.state.returnIds) 
-                // }, 4000);
+               
             })
             .catch((error) => {
                 this.loadDataError(error, this);
@@ -69,16 +86,31 @@ class UpdateSurveyEntries extends React.Component {
 this.surveyEntries();
         Endpoint.getSurveyConditionalRendering(this.state.subCatId)
             .then((res) => {
-                console.log(res.data);
+                //console.log(res.data);
                 this.setState({ logicLoad: res.data });
-                console.log(this.state.logicLoad, "stnnnnate");
-
+                //console.log(this.state.logicLoad, "stnnnnate");
+                setTimeout(() => {
+                    this.state.checkedCatIds.forEach(function(item) {
+                        var isChk = $("#subCat" + item).is(":checked")
+                        var tt = document.getElementById("subCat"+item);
+                        //console.log(tt)
+                        if(!isChk){
+                            tt.setAttribute("checked", true)
+                        }
+                    });
                 $("#preloader").fadeOut();
+
+                }, 2000);
+
             })
             .catch((error) => {
                 this.loadDataError(error, this);
                 $("#preloader").fadeOut();
             });
+
+
+
+            
     };
     showSubQuestions = (data) => {
         var f = $("#" + data).height();
@@ -231,7 +263,7 @@ this.surveyEntries();
                                                                         {/* Main category Start*/}
                                                                         <div className="" style={{ justifyContent: "space-between" }}>
                                                                             <div className="col-sm-3">
-                                                                                <input className="" type="checkbox" id="" onClick={() => this.showSubQuestions("sub" + question__options.id)} /> &nbsp; &nbsp;{" "}
+                                                                                <input className="" type="checkbox" id={"subCat" + question__options.id} onClick={() => this.showSubQuestions("sub" + question__options.id)} /> &nbsp; &nbsp;{" "}
                                                                                 <small style={{ fontSize: "13px" }}>{question__options.name}</small>
                                                                                 <div style={{ float: "right" }} onClick={() => this.showSubQuestions("sub" + question__options.id)}>
                                                                                     <i className="fa fa-angle-down" style={{ fontSize: "16px" }} />

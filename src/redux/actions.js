@@ -21,6 +21,8 @@ export const stateKeys = {
     TOAST: '__toast',
     SUB_CATEGORY_ID:"SUB__ID",
     ROUTE_KEY:'__onboardRoute__',
+    REGION:'__region',
+    RESTRICTION:'__region__restriction',
 };
 export const BUG_ADDED = "BUG_ADDED";
 export const BUG_REMOVED = "BUG_REMOVED";

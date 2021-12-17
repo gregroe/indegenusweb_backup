@@ -353,3 +353,9 @@ display: none!important;
   border-radius: 8px!important;
   padding: 10px!important
 }
+
+.ant-drawer-close {
+
+  color: rgb(215 206 206)!important;
+  
+}

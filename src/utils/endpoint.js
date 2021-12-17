@@ -20,8 +20,8 @@ const Endpoint = {
         let token = getUserToken();
         if (token)
             axios.defaults.headers.common['Authorization'] = token;
-        axios.defaults.baseURL = "http://10.211.55.3/api";
-        //axios.defaults.baseURL = "https://indybackend.studyaccess.net/api";
+        //axios.defaults.baseURL = "http://10.211.55.3/api";        
+        axios.defaults.baseURL = "https://indybackend.studyaccess.net/api";
          
         // Intercept 401 HTTP Error code in API
         axios.interceptors.response.use(response => response, (error) => {
@@ -95,7 +95,22 @@ const Endpoint = {
     getUserSurveyEntries: (userId, subCategoryId) => {
         return axios.get(`SurveyCategory/GetUserSurveyEntries?surveySubCategoryId=${subCategoryId}&userId=${userId}`, headers)
     },
-    
+
+    postSecurityQuestions: (userId, data) => {
+        return axios.post(`User/PostSecurityQuestions?userId=${userId}`,data, headers)
+    }, 
+    getRegions: () => {
+        return axios.get(`SurveyCategory/GetRegions`, headers)
+    },
+    getUserEntryCategory: (userId, subCategoryId) => {
+        return axios.get(`SurveyCategory/UserEntryCategories?surveySubCategoryId=${subCategoryId}&userId=${userId}`, headers)
+    },
+    getUserCompliances: (userId) => {
+        return axios.get(`User/DetailsOfCompliance?userId=${userId}`, headers)
+    },
+    postUserAgreement: (userId, complianceType) => {
+        return axios.post(`User/UserAgreementCompliance?userId=${userId}&agreementType=${complianceType}`, headers)
+    }, 
     
 };
 
