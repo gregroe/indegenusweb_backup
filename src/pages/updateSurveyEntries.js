@@ -249,7 +249,7 @@ this.surveyEntries();
 
                                                     <img src={lineQuestion} style={{ width: "349px" }} />
                                                     <p style={{ textAlign: "center", width: "100%" }}>
-                                                        <small style={{ textAlign: "center", color: "#298f63" }}>Click on Next if none of the undelisted apply</small>
+                                                        <small style={{ textAlign: "center", color: "#298f63" }}>Click Next if none of the undelisted apply</small>
                                                     </p>
                                                 </div>
                                                 <br />

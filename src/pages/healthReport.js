@@ -236,7 +236,7 @@ designed just for you</p>
                     </Collapse>
                 </div>
                 <div className="container-fluid">
-                <h2>Browse IngyGeneUS Health Videos</h2>
+                <h2>Browse IndyGeneUS Health Videos</h2>
                 </div>
 
                 <div class="scrolling-wrapper-flexbox" id="">
@@ -255,7 +255,7 @@ designed just for you</p>
                             src="https://www.youtube.com/embed/CEnwDButsSE"
                             title="YouTube video player"
                             frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen
                         ></iframe>
                     </div>
@@ -272,16 +272,13 @@ designed just for you</p>
                             src="https://www.youtube.com/embed/8pdVflNf2Eo"
                             title="YouTube video player"
                             frameborder="0"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                            allow="accelerometer; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen
                         ></iframe>
                     </div>
 
-                    <div class="card" style={{width:'300px', height:'200px', marginLeft:'20px'}}>
-                        {/*                       
-                        <video width="320" height="240" controls>
-                            <source src="https://www.youtube.com/watch?v=SGaQ0WwZ_0I" type="video/mp4" />
-                        </video> */}
+                    {/* <div class="card" style={{width:'300px', height:'200px', marginLeft:'20px'}}>
+                   
 
                         <iframe
                             width="100%"
@@ -295,10 +292,7 @@ designed just for you</p>
                     </div>
 
                     <div class="card" style={{width:'300px', height:'200px', marginLeft:'20px'}}>
-                        {/*                       
-                        <video width="320" height="240" controls>
-                            <source src="https://www.youtube.com/watch?v=SGaQ0WwZ_0I" type="video/mp4" />
-                        </video> */}
+                   
 
                         <iframe
                             width="100%"
@@ -309,7 +303,7 @@ designed just for you</p>
                             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                             allowfullscreen
                         ></iframe>
-                    </div>
+                    </div> */}
                    
                     {/* </div> */}
                     
