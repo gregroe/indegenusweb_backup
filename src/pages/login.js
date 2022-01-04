@@ -95,7 +95,7 @@ handleSignUp = () => {
         console.log(res)
         console.log(res.data)
         if(res.status == 200 && res.data.token != null){
-            loginUser(res.data.token, res.data, true);               
+            loginUser(res.data.token, res.data, true,this.props);               
         }
         else{
             $("#preloader").fadeOut("slow");

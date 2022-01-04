@@ -5,6 +5,8 @@ import {setReduxState} from "./helpers";
 //import store from "../redux/store"
 //import { Navigate } from "react-router";
 //import {browserHistory, hi} from "react-router";
+//import { useHistory } from "react-router-dom";
+import { useNavigate } from 'react-router-dom';
 
 export function __RouteProps(route) {
     //useHistory.push(route);
@@ -24,8 +26,11 @@ export function getActiveStore() {
 // }
 
 
-export function loginUser(token, user, redirect) {
-   
+export function loginUser(token, user, redirect, props) {
+    //const propsvar = props;
+    //let history = useHistory();
+    //const navigate = useNavigate();
+
     const storage = localStorage;
     const _storage = sessionStorage;
     storage.setItem(TOKEN_KEY, token);
@@ -40,11 +45,19 @@ export function loginUser(token, user, redirect) {
             window.location = intended;
         } 
         else if(user.securityQuestion){
+            //window.location.assign("https://ingegenusfrontend.azurewebsites.net/profile")
             window.location = "/profile";
+           //propsvar.history.push("/profile");
+           //history.push('/profile')
+           //navigate('/profile');
             return true;
         }
         else if(!user.securityQuestion){
+            //window.location.assign("https://ingegenusfrontend.azurewebsites.net/security_questions")
             window.location = "/security_questions";
+            //propsvar.history.push("/security_questions");
+            //history.push('/security_questions')
+            //navigate('/security_questions');
             return true;
         }
         // else if(!user.securityQuestion){

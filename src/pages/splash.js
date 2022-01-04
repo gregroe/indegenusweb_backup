@@ -20,7 +20,7 @@ class Splash extends React.Component {
     }
     InitializeUser = () => {
         if(userLoggedIn()){
-            loginUser(this.state.payLoad?.token, this.state.payLoad, true);   
+            loginUser(this.state.payLoad?.token, this.state.payLoad, true, this.props);   
         }
         else{
             //alert("f")
@@ -41,7 +41,7 @@ class Splash extends React.Component {
                </div>
                     <img src={splashLogo} style={{ width: "181px", marginTop: "100px" }} />
 
-                    <Link id="get__started1" to="welcome" onClick={() => this.setGlobalState('signup')}>
+                    <Link id="get__started1" to="/welcome" onClick={() => this.setGlobalState('signup')}>
                         
                         Get Started
                     </Link>

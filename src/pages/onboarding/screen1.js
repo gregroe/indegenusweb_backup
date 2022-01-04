@@ -83,16 +83,20 @@ class ScreenOne extends React.Component {
                                     </div>
                                 </div>
                             </Carousel>
-                            <div style={{ background: "#0B0B0B", height: "300px", textAlign: "left", padding: "14px" }}>
+                           
+                           <div style={{ background: "#0B0B0B", height: "300px", textAlign: "left", padding: "14px" }}>
                                 <h3 style={{ color: "#939393", fontSize: "18px", fontWeight: "500" }}>Get</h3>
                                 <h4 style={{ color: "#CDCDCD", fontWeight: "500", fontSize: "20px", marginTop: "-12px" }}>A Free</h4>
                                 <h4 style={{ color: "#FFF", fontWeight: "500", fontSize: "20px", marginTop: "-12px" }}>Health Risk Assesment</h4>
-
+                            
                                 <div className="text-center" style={{marginTop:'40px'}}>
-                                    <a href="/choose_data" id="start__btn">
+                          
+                                    <Link to ="/choose_data" id="start__btn">
                                     <button  style={{ width: "100%", height: "45px", background: "#FFB43A", border: "none", borderRadius: "12px", fontSize: "18px", fontWeight: "500", color:"#000" }}>Start</button>
-                                    </a>
-                                </div>
+                                    </Link>
+
+                                </div> 
+
                             </div>
                         </div>
                     </div>
