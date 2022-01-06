@@ -108,10 +108,10 @@ class ChooseData extends React.Component {
                            </div>
 
                            <div className="text-center" style={{marginTop:'300px'}}>
-                                    {/* <Link to="/choose_data"> */}
+                                  
                                     <button style={{ width: "100%", height: "45px", background: "#FFB43A", border: "none", borderRadius: "12px", fontSize: "18px", fontWeight: "500", color:"#FFF" }} onClick={this.toggleOptionSelect}>Continue</button>
-                                    {/* </Link> */}
-                                </div>
+                                   
+                         </div>
                     </div>
                     </div>
                 </Fade> : null}
@@ -144,7 +144,7 @@ class ChooseData extends React.Component {
                                     <Link to="/user_validation" onClick={() => this.setGlobalState('signup')}>
                                     <button style={{ width: "100%", height: "45px", background: "#FFB43A", border: "none", borderRadius: "12px", fontSize: "18px", fontWeight: "500", color:"#FFF" }}>Continue</button>
                                     </Link>
-                                </div>
+                           </div>
                     </div>
                     </div>
                 </Fade> : null}
